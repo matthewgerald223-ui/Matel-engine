@@ -1,228 +1,301 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Matel | Independent Search Engine by Ekpah Matthew</title>
-    
-    <!-- SEO Meta Tags for Google Indexing -->
-    <meta name="description" content="Matel is a lightweight, fast web search engine created by Ekpah Matthew (Matthew Gerald) featuring instant math calculations, direct website shortcuts, and quick web lookups.">
-    <meta name="keywords" content="Matel, Matel search engine, Matel engine, Ekpah Matthew, Matthew Gerald, web search engine, independent search engine">
-    <meta name="author" content="Ekpah Matthew">
-    <meta name="robots" content="index, follow">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Matel | Independent Search Engine</title>
+  
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="Matel Engine is an independent search engine created and developed by Ekpah Matthew. Built to make web discovery fast, simple, and clean.">
+  <meta name="author" content="Ekpah Matthew">
+  <meta name="keywords" content="Matel, Matel Engine, Search Engine, Ekpah Matthew, Independent Search Engine">
 
-    <!-- Open Graph for Social Media Link Sharing -->
-    <meta property="og:title" content="Matel | Independent Search Engine by Ekpah Matthew">
-    <meta property="og:description" content="Fast, lightweight search engine developed by Ekpah Matthew.">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://matel-engine.onrender.com">
+  <!-- Open Graph / Social Media -->
+  <meta property="og:title" content="Matel Search Engine">
+  <meta property="og:description" content="Created and developed by Ekpah Matthew. Fast and independent web search.">
+  <meta property="og:type" content="website">
 
-    <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
-        body {
-            background-color: #121318;
-            color: #f8fafc;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding-bottom: 80px;
-        }
-        .app-container {
-            width: 100%;
-            max-width: 500px;
-            padding: 15px;
-            display: flex;
-            flex-direction: column;
-        }
-        .logo {
-            font-size: 42px;
-            font-weight: 900;
-            text-align: center;
-            color: #00ffcc;
-            margin: 30px 0 5px;
-            letter-spacing: 2px;
-        }
-        .tagline {
-            text-align: center;
-            font-size: 12px;
-            color: #94a3b8;
-            margin-bottom: 25px;
-        }
-        .search-box-container {
-            display: flex;
-            background: #1e2028;
-            border-radius: 30px;
-            padding: 6px;
-            border: 1px solid #2a2d3d;
-            margin-bottom: 20px;
-        }
-        .search-input {
-            flex: 1;
-            background: transparent;
-            border: none;
-            outline: none;
-            color: #f8fafc;
-            padding: 12px 16px;
-            font-size: 16px;
-        }
-        .search-btn {
-            background: #00ffcc;
-            color: #121318;
-            border: none;
-            padding: 0 24px;
-            border-radius: 24px;
-            font-weight: bold;
-            cursor: pointer;
-        }
-        .results-container {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-        .result-card {
-            background: #1e2028;
-            border: 1px solid #2a2d3d;
-            border-radius: 16px;
-            padding: 16px;
-            text-decoration: none;
-            color: inherit;
-            display: block;
-            transition: border-color 0.2s;
-        }
-        .result-card:hover {
-            border-color: #00ffcc;
-        }
-        .result-title {
-            font-size: 18px;
-            color: #38bdf8;
-            margin-bottom: 6px;
-            font-weight: 600;
-        }
-        .result-snippet {
-            font-size: 14px;
-            color: #94a3b8;
-            line-height: 1.4;
-            margin-bottom: 8px;
-        }
-        .result-url {
-            font-size: 12px;
-            color: #34d399;
-            word-break: break-all;
-        }
-        .instant-answer {
-            background: #1e2028;
-            border: 1px solid #00ffcc;
-            border-radius: 16px;
-            padding: 20px;
-            font-size: 22px;
-            text-align: center;
-            color: #00ffcc;
-            font-weight: bold;
-            margin-bottom: 20px;
-        }
-        .footer-credit {
-            margin-top: 30px;
-            font-size: 12px;
-            color: #64748b;
-            text-align: center;
-        }
-        .footer-credit strong {
-            color: #00ffcc;
-        }
-        .nav-bar {
-            position: fixed;
-            bottom: 0;
-            width: 100%;
-            max-width: 500px;
-            background: #121318;
-            border-top: 1px solid #2a2d3d;
-            display: flex;
-            justify-content: space-around;
-            padding: 12px 0;
-        }
-        .nav-item {
-            color: #94a3b8;
-            text-align: center;
-            font-size: 11px;
-            text-decoration: none;
-        }
-    </style>
+  <style>
+    /* RESET & BASE STYLES */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    body {
+      background-color: #0b0f14;
+      color: #ffffff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px 15px 80px 15px; /* bottom padding so mobile navbar no block footer */
+    }
+
+    /* MAIN CONTAINER */
+    .container {
+      width: 100%;
+      max-width: 700px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 40px;
+    }
+
+    /* BRAND LOGO & SUBTITLE */
+    .logo {
+      font-size: 42px;
+      font-weight: 900;
+      color: #00ffcc;
+      letter-spacing: 2px;
+      margin-bottom: 2px;
+    }
+
+    .sub-domain {
+      font-size: 13px;
+      color: #8b9bb0;
+      margin-bottom: 25px;
+    }
+
+    /* SEARCH FORM */
+    .search-box {
+      width: 100%;
+      position: relative;
+      display: flex;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .search-input {
+      width: 100%;
+      padding: 16px 100px 16px 20px;
+      border-radius: 30px;
+      border: 1px solid #1a232e;
+      background-color: #12181f;
+      color: #ffffff;
+      font-size: 15px;
+      outline: none;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .search-input:focus {
+      border-color: #00ffcc;
+      box-shadow: 0 0 12px rgba(0, 255, 204, 0.2);
+    }
+
+    .search-input::placeholder {
+      color: #5d6e82;
+    }
+
+    .search-btn {
+      position: absolute;
+      right: 6px;
+      padding: 10px 24px;
+      border-radius: 25px;
+      border: none;
+      background-color: #00ffcc;
+      color: #0b0f14;
+      font-weight: bold;
+      font-size: 14px;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+    }
+
+    .search-btn:hover {
+      background-color: #00e6b8;
+    }
+
+    /* DEVELOPER CREDIT */
+    .developer-tag {
+      font-size: 13px;
+      color: #8b9bb0;
+      margin-bottom: 35px;
+      text-align: center;
+    }
+
+    .developer-tag span {
+      color: #00ffcc;
+      font-weight: 600;
+    }
+
+    /* 1. FEATURE HIGHLIGHT CARDS */
+    .matel-features {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      width: 100%;
+      margin-bottom: 30px;
+      flex-wrap: wrap;
+    }
+
+    .feature-card {
+      background: #12181f;
+      border: 1px solid #1a232e;
+      border-radius: 14px;
+      padding: 16px;
+      flex: 1;
+      min-width: 180px;
+      max-width: 210px;
+      text-align: center;
+      transition: transform 0.2s ease, border-color 0.2s ease;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-3px);
+      border-color: #00ffcc;
+    }
+
+    .feature-icon {
+      font-size: 22px;
+      margin-bottom: 8px;
+    }
+
+    .feature-card h4 {
+      color: #ffffff;
+      font-size: 13px;
+      margin-bottom: 6px;
+    }
+
+    .feature-card p {
+      color: #8b9bb0;
+      font-size: 11px;
+      line-height: 1.4;
+    }
+
+    /* 2. TRENDING TAGS */
+    .matel-trending {
+      width: 100%;
+      text-align: center;
+      margin-bottom: 35px;
+    }
+
+    .trending-title {
+      color: #8b9bb0;
+      font-size: 12px;
+      display: block;
+      margin-bottom: 10px;
+    }
+
+    .tag {
+      display: inline-block;
+      background: #12181f;
+      color: #00ffcc;
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 11px;
+      text-decoration: none;
+      margin: 4px;
+      border: 1px solid rgba(0, 255, 204, 0.2);
+      transition: all 0.2s ease;
+    }
+
+    .tag:hover {
+      background: #00ffcc;
+      color: #0b0f14;
+    }
+
+    /* 3. FOOTER MENU & STATS */
+    .matel-footer {
+      width: 100%;
+      text-align: center;
+      border-top: 1px solid #1a232e;
+      padding-top: 25px;
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 18px;
+      margin-bottom: 12px;
+      flex-wrap: wrap;
+    }
+
+    .footer-links a {
+      color: #8b9bb0;
+      font-size: 12px;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover {
+      color: #00ffcc;
+    }
+
+    .footer-stats {
+      color: #4a5a6e;
+      font-size: 11px;
+    }
+  </style>
 </head>
 <body>
-    <div class="app-container">
-        <div class="logo">MATEL</div>
-        <div class="tagline">www.matel.com</div>
-        
-        <div class="search-box-container">
-            <input type="text" id="searchInput" class="search-input" placeholder="Search anything or calculate...">
-            <button id="searchBtn" class="search-btn">Go</button>
-        </div>
 
-        <div id="resultsArea" class="results-container"></div>
+  <div class="container">
+    <!-- BRAND LOGO -->
+    <h1 class="logo">MATEL</h1>
+    <div class="sub-domain">www.matel.com</div>
 
-        <div class="footer-credit">
-            Created & Developed by <strong>Ekpah Matthew</strong>
-        </div>
+    <!-- SEARCH BAR -->
+    <form class="search-box" action="/search" method="GET">
+      <input 
+        type="text" 
+        name="q" 
+        class="search-input" 
+        placeholder="Search anything or calculate..." 
+        required 
+        autocomplete="off"
+      >
+      <button type="submit" class="search-btn">Go</button>
+    </form>
+
+    <!-- DEVELOPER CREDIT -->
+    <div class="developer-tag">
+      Created & Developed by <span>Ekpah Matthew</span>
     </div>
 
-    <div class="nav-bar">
-        <a href="#" class="nav-item">Home</a>
-        <a href="#" class="nav-item">Search</a>
-        <a href="#" class="nav-item">Alerts</a>
-        <a href="#" class="nav-item">Activity</a>
+    <!-- 1. FEATURE HIGHLIGHT CARDS -->
+    <div class="matel-features">
+      <div class="feature-card">
+        <div class="feature-icon">⚡</div>
+        <h4>Fast Web Discovery</h4>
+        <p>Get instant search results and real-time indexed answers across the web.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🧮</div>
+        <h4>Smart Calculator</h4>
+        <p>Perform quick math, equations, and student calculations directly in the bar.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🔒</div>
+        <h4>Clean & Private</h4>
+        <p>Zero clutter, privacy-focused search experience built for pure speed.</p>
+      </div>
     </div>
 
-    <script>
-        const searchInput = document.getElementById('searchInput');
-        const searchBtn = document.getElementById('searchBtn');
-        const resultsArea = document.getElementById('resultsArea');
+    <!-- 2. TRENDING TOPICS -->
+    <div class="matel-trending">
+      <span class="trending-title">Trending Topics:</span>
+      <a href="/search?q=Tech+News" class="tag">Tech News</a>
+      <a href="/search?q=Football+Scores" class="tag">Football Scores</a>
+      <a href="/search?q=Student+Tools" class="tag">Student Tools</a>
+      <a href="/search?q=AI+Tools" class="tag">AI Tools</a>
+    </div>
 
-        async function performSearch() {
-            const query = searchInput.value.trim();
-            if (!query) return;
+    <!-- 3. FOOTER MENU & STATS -->
+    <footer class="matel-footer">
+      <div class="footer-links">
+        <a href="#">About Matel</a>
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms</a>
+        <a href="#">Developer Info</a>
+      </div>
+      <div class="footer-stats">
+        <span>Matel Engine v1.0</span> • <span>Powered by Node.js</span>
+      </div>
+    </footer>
 
-            resultsArea.innerHTML = '<div style="text-align:center; color:#94a3b8; padding:20px;">Searching...</div>';
+  </div>
 
-            try {
-                const res = await fetch(`/api/search?q=${encodeURIComponent(query)}`);
-                const data = await res.json();
-
-                resultsArea.innerHTML = '';
-
-                if (data.type === 'instant') {
-                    resultsArea.innerHTML = `<div class="instant-answer">${data.answer}</div>`;
-                    return;
-                }
-
-                if (!data.results || data.results.length === 0) {
-                    resultsArea.innerHTML = '<div style="text-align:center; color:#94a3b8; padding:20px;">No direct search results found</div>';
-                    return;
-                }
-
-                data.results.forEach(item => {
-                    const card = document.createElement('a');
-                    card.href = item.url;
-                    card.target = '_blank';
-                    card.className = 'result-card';
-                    card.innerHTML = `
-                        <div class="result-title">${item.title}</div>
-                        <div class="result-snippet">${item.snippet}</div>
-                        <div class="result-url">${item.url}</div>
-                    `;
-                    resultsArea.appendChild(card);
-                });
-
-            } catch (err) {
-                console.error(err);
-                resultsArea.innerHTML = '<div style="text-align:center; color:#ef4444; padding:20px;">Failed to fetch search results.</div>';
-            }
-        }
-
-        searchBtn.addEventListener('click', performSearch);
-        searchInput.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') performSearch();
-        });
-    </script>
 </body>
 </html>
