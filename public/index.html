@@ -1,3 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Matel | Independent Search Engine</title>
+  
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="Matel Engine is an independent search engine created and developed by Ekpah Matthew. Built for fast web discovery and smart calculations.">
+  <meta name="author" content="Ekpah Matthew">
+  <meta name="keywords" content="Matel, Matel Engine, Search Engine, Ekpah Matthew, Independent Search Engine">
+
+  <!-- Open Graph / Social Media -->
+  <meta property="og:title" content="Matel Search Engine">
+  <meta property="og:description" content="Created and developed by Ekpah Matthew. Fast and independent web search.">
+  <meta property="og:type" content="website">
+
+  <style>
     /* RESET & BASE STYLES */
     * {
       box-sizing: border-box;
@@ -59,6 +77,7 @@
       color: #ffffff;
       font-size: 14px;
       outline: none;
+      transition: border-color 0.2s ease;
     }
 
     .search-input:focus {
@@ -96,7 +115,7 @@
       font-weight: 600;
     }
 
-    /* 1. FEATURE CARDS (FIXED FOR MOBILE) */
+    /* FEATURE HIGHLIGHT CARDS */
     .matel-features {
       display: flex;
       justify-content: center;
@@ -131,7 +150,7 @@
       line-height: 1.3;
     }
 
-    /* 2. TRENDING TAGS */
+    /* TRENDING TAGS */
     .matel-trending {
       width: 100%;
       text-align: center;
@@ -157,7 +176,7 @@
       border: 1px solid rgba(0, 255, 204, 0.2);
     }
 
-    /* 3. FOOTER MENU & STATS */
+    /* FOOTER MENU & STATS */
     .matel-footer {
       width: 100%;
       text-align: center;
@@ -183,3 +202,65 @@
       color: #4a5a6e;
       font-size: 10px;
     }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <!-- BRAND LOGO -->
+    <h1 class="logo">MATEL</h1>
+    <div class="sub-domain">www.matel.com</div>
+
+    <!-- SEARCH FORM -->
+    <form class="search-box" action="/search" method="GET">
+      <input type="text" name="q" class="search-input" placeholder="Search anything or calculate..." required autocomplete="off">
+      <button type="submit" class="search-btn">Go</button>
+    </form>
+
+    <!-- DEVELOPER CREDIT -->
+    <div class="developer-tag">
+      Created & Developed by <span>Ekpah Matthew</span>
+    </div>
+
+    <!-- FEATURE CARDS -->
+    <div class="matel-features">
+      <div class="feature-card">
+        <div class="feature-icon">⚡</div>
+        <h4>Fast Web</h4>
+        <p>Instant search results across the web.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🧮</div>
+        <h4>Calculator</h4>
+        <p>Quick math directly in the bar.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🔒</div>
+        <h4>Private</h4>
+        <p>Zero clutter, speed-focused.</p>
+      </div>
+    </div>
+
+    <!-- TRENDING TAGS -->
+    <div class="matel-trending">
+      <span class="trending-title">Trending Topics:</span>
+      <a href="/search?q=Tech" class="tag">Tech News</a>
+      <a href="/search?q=Football" class="tag">Football</a>
+      <a href="/search?q=Students" class="tag">Students</a>
+    </div>
+
+    <!-- FOOTER MENU -->
+    <footer class="matel-footer">
+      <div class="footer-links">
+        <a href="#">About</a>
+        <a href="#">Privacy</a>
+        <a href="#">Terms</a>
+      </div>
+      <div class="footer-stats">
+        <span>Matel Engine v1.0</span> • <span>Powered by Node.js</span>
+      </div>
+    </footer>
+  </div>
+
+</body>
+</html>
