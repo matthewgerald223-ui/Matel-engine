@@ -1,38 +1,34 @@
-const express = require('express');
-const app = express();
-
-// Serve static files from public folder if needed
-app.use(express.static('public'));
-
-// Search Route
 app.get('/search', (req, res) => {
-  const query = req.query.q; // Grabs what you typed inside the search bar
+  const query = req.query.q;
   
   if (!query) {
     return res.redirect('/');
   }
 
-  // For now, let's make it display what you searched for
   res.send(`
-    <html>
-      <head>
-        <title>Matel Search: ${query}</title>
-        <style>
-          body { background: #0b0f14; color: #fff; font-family: sans-serif; padding: 40px; text-align: center; }
-          h2 { color: #00ffcc; }
-          a { color: #00ffcc; text-decoration: none; display: inline-block; margin-top: 20px; }
-        </style>
-      </head>
-      <body>
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Matel Search - ${query}</title>
+      <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: sans-serif; }
+        body { background-color: #0b0f14; color: #ffffff; display: flex; flex-direction: column; align-items: center; min-height: 100vh; padding: 30px 20px; }
+        .container { width: 100%; max-width: 700px; }
+        h2 { color: #00ffcc; margin-bottom: 15px; font-size: 24px; }
+        p { color: #8b9bb0; font-size: 14px; margin-bottom: 25px; }
+        .back-btn { display: inline-block; background-color: #12181f; border: 1px solid #1a232e; color: #00ffcc; padding: 10px 20px; border-radius: 20px; text-decoration: none; font-size: 13px; font-weight: bold; }
+        .back-btn:hover { border-color: #00ffcc; }
+      </style>
+    </head>
+    <body>
+      <div class="container">
         <h2>Matel Search Results</h2>
-        <p>You searched for: <strong>${query}</strong></p>
-        <a href="/">← Back to Home</a>
-      </body>
+        <p>You searched for: <strong style="color: #ffffff;">${query}</strong></p>
+        <a href="/" class="back-btn">← Back to Home</a>
+      </div>
+    </body>
     </html>
   `);
-});
-
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log(`Matel engine running on port ${PORT}`);
 });
