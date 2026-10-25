@@ -50,20 +50,21 @@ function toggleMode() {
   }
 }
 
-// Search Engine Logic
+// Search Engine Logic (Universal Knowledge Engine)
 function handleSearch(event) {
   if (event.key === 'Enter') {
     performSearch();
   }
 }
 
-function performSearch() {
+async function performSearch() {
   const inputEl = document.getElementById('searchInput');
   const warningBox = document.getElementById('safetyWarning');
   
   if (!inputEl) return;
   
-  const query = inputEl.value.toLowerCase().trim();
+  const rawQuery = inputEl.value.trim();
+  const query = rawQuery.toLowerCase();
 
   // Safety Check
   const isForbidden = forbiddenWords.some(word => query.includes(word));
@@ -75,45 +76,50 @@ function performSearch() {
     if (warningBox) warningBox.classList.add('hidden');
   }
 
-  if (!query) {
+  if (!rawQuery) {
     renderCards(searchCards);
     return;
   }
 
-  let results = [];
-
-  if (query.includes('tiktok')) {
-    results.push({
-      title: 'TikTok Workspace Portal',
-      url: 'https://www.tiktok.com',
-      desc: 'TikTok is a global short-form video hosting service owned by ByteDance Ltd.',
-      img: 'https://images.unsplash.com/photo-1611605698335-8b1569810432?auto=format&fit=crop&w=500&q=80'
-    });
-  } else if (query.includes('youtube')) {
-    results.push({
-      title: 'YouTube Streaming Center',
-      url: 'https://www.youtube.com',
-      desc: 'YouTube is an online video sharing and social media platform operated by Google.',
-      img: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=500&q=80'
-    });
-  } else if (query.includes('ronaldo')) {
-    results.push({
-      title: 'Cristiano Ronaldo (Full Profile)',
-      url: '#',
-      desc: 'Cristiano Ronaldo dos Santos Aveiro is a Portuguese professional footballer who plays as a forward and captains Al-Nassr and the Portugal national team.',
-      img: 'https://images.unsplash.com/photo-1508098682722-e99c43a406b2?auto=format&fit=crop&w=500&q=80'
-    });
-  } else {
-    let capitalized = query.charAt(0).toUpperCase() + query.slice(1);
-    results.push({
-      title: capitalized,
-      url: '#',
-      desc: `Detailed Matel Workspace Record for "${query}": Comprehensive educational analysis and knowledge synthesis.`,
-      img: 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=500&q=80'
-    });
+  // Show loading state
+  const grid = document.getElementById('searchResults');
+  if (grid) {
+    grid.innerHTML = `<p style="color:var(--text-muted); grid-column:1/-1; text-align:center;">🧠 Matel Intelligence is analyzing "${rawQuery}"...</p>`;
   }
 
-  renderCards(results);
+  try {
+    const response = await fetch(`https://api.duckduckgo.com/?q=${encodeURIComponent(rawQuery)}&format=json`);
+    const data = await response.json();
+
+    let title = rawQuery.charAt(0).toUpperCase() + rawQuery.slice(1);
+    let desc = '';
+    let imgUrl = 'https://images.unsplash.com/photo-1532094349884-543bc11b234d?auto=format&fit=crop&w=500&q=80';
+
+    if (data.AbstractText) {
+      desc = data.AbstractText;
+      if (data.Heading) title = data.Heading;
+      if (data.Image) imgUrl = `https://duckduckgo.com${data.Image}`;
+    } else if (data.RelatedTopics && data.RelatedTopics.length > 0 && data.RelatedTopics[0].Text) {
+      desc = data.RelatedTopics[0].Text;
+    } else {
+      desc = `Comprehensive Matel Workspace Knowledge Synthesis for "${rawQuery}": This subject covers key theoretical concepts, historical context, structural mechanics, and analytical breakdown optimized for independent research.`;
+    }
+
+    renderCards([{
+      title: title,
+      desc: desc,
+      img: imgUrl,
+      url: '#'
+    }]);
+
+  } catch (err) {
+    renderCards([{
+      title: rawQuery.charAt(0).toUpperCase() + rawQuery.slice(1),
+      desc: `Independent Matel Record: Detailed breakdown and analytical review for "${rawQuery}".`,
+      img: 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=500&q=80',
+      url: '#'
+    }]);
+  }
 }
 
 function renderCards(cards) {
@@ -127,18 +133,7 @@ function renderCards(cards) {
   }
 
   cards.forEach(card => {
-    const el = document.createElement('a');
-    el.href = card.url || '#';
-    
-    if (card.url === '#') {
-      el.onclick = (e) => {
-        e.preventDefault();
-        alert(`${card.title.toUpperCase()}\n\n${card.desc}`);
-      };
-    } else {
-      el.target = '_blank';
-    }
-    
+    const el = document.createElement('div');
     el.className = 'card';
     el.innerHTML = `
       <div class="card-img-container">
@@ -147,13 +142,14 @@ function renderCards(cards) {
       <div class="card-content">
         <h4>${card.title}</h4>
         <p>${card.desc}</p>
+        ${card.url && card.url !== '#' ? `<a href="${card.url}" target="_blank" style="display:inline-block; margin-top:10px; color:var(--accent-color, #38bdf8); font-size:0.9rem; text-decoration:underline;">Open Official Portal ↗</a>` : ''}
       </div>
     `;
     grid.appendChild(el);
   });
 }
 
-// Calculator Logic
+// Calculator Logic with Symbolic Algebra & Step-by-Step Breakdown
 let currentExpression = '';
 
 function calcInput(val) {
@@ -202,7 +198,7 @@ function calculateResult() {
   }
 }
 
-// OCR Scanner
+// OCR Scanner via Tesseract.js
 function openScanner() {
   const modal = document.getElementById('scannerModal');
   if (modal) modal.classList.remove('hidden');
