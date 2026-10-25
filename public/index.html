@@ -49,29 +49,32 @@
       margin-bottom: 20px;
     }
 
-    /* WORKING SEARCH FORM FIX */
+    /* 100% CLICKABLE SEARCH BOX (FLEX LAYOUT) */
     .search-box {
       width: 100%;
-      position: relative;
       display: flex;
       align-items: center;
+      background-color: #12181f;
+      border: 1px solid #1a232e;
+      border-radius: 30px;
+      padding: 5px 6px;
       margin-bottom: 15px;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .search-box:focus-within {
+      border-color: #00ffcc;
+      box-shadow: 0 0 10px rgba(0, 255, 204, 0.2);
     }
 
     .search-input {
-      width: 100%;
-      padding: 14px 90px 14px 18px;
-      border-radius: 30px;
-      border: 1px solid #1a232e;
-      background-color: #12181f;
+      flex: 1;
+      padding: 10px 14px;
+      border: none;
+      background: transparent;
       color: #ffffff;
       font-size: 14px;
       outline: none;
-    }
-
-    .search-input:focus {
-      border-color: #00ffcc;
-      box-shadow: 0 0 10px rgba(0, 255, 204, 0.2);
     }
 
     .search-input::placeholder {
@@ -79,10 +82,6 @@
     }
 
     .search-btn {
-      position: absolute;
-      right: 5px;
-      top: 50%;
-      transform: translateY(-50%);
       padding: 9px 20px;
       border-radius: 25px;
       border: none;
@@ -91,7 +90,11 @@
       font-weight: bold;
       font-size: 13px;
       cursor: pointer;
-      z-index: 10;
+      flex-shrink: 0;
+    }
+
+    .search-btn:hover {
+      background-color: #00e6b8;
     }
 
     .developer-tag {
@@ -162,6 +165,7 @@
       font-size: 10px;
       text-decoration: none;
       margin: 3px;
+      border: 1px solid rgba(0, 255, 204, nothing);
       border: 1px solid rgba(0, 255, 204, 0.2);
     }
 
@@ -239,7 +243,7 @@
         <a href="#">Terms</a>
       </div>
       <div class="footer-stats">
-        <span>Matel v1.0</span> • <span>Node.js</span>
+        <span>Matel v1.0</span> • <span>Powered by Node.js</span>
       </div>
     </footer>
   </div>
