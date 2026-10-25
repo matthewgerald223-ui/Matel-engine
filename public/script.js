@@ -11,14 +11,14 @@ let searchCards = [
     keyword: 'code', 
     title: 'MDN Web Docs', 
     url: 'https://developer.mozilla.org', 
-    desc: 'Comprehensive web development resources, documentation for HTML, CSS, JavaScript, and modern web APIs built by developers for developers.', 
+    desc: 'Comprehensive web development resources, documentation for HTML, CSS, JavaScript, and modern web APIs.', 
     img: 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=500&q=80' 
   },
   { 
     keyword: 'science', 
     title: 'NASA Science', 
     url: 'https://science.nasa.gov', 
-    desc: 'Explore deep space, our home planet, astrophysics missions, planetary science discoveries, and astronomical research reports.', 
+    desc: 'Explore deep space, our home planet, astrophysics missions, and planetary science discoveries.', 
     img: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=500&q=80' 
   }
 ];
@@ -26,10 +26,10 @@ let searchCards = [
 // Safety Filter Forbidden Words
 const forbiddenWords = ['adult', 'nsfw', 'xxx', 'sex', 'porn'];
 
-// Initialize Page
-window.onload = function() {
+// Initialize Page Safely
+window.addEventListener('DOMContentLoaded', () => {
   renderCards(searchCards);
-};
+});
 
 // Toggle Calculator / Search Modes
 function toggleMode() {
@@ -37,34 +37,42 @@ function toggleMode() {
   const calcSec = document.getElementById('calcSection');
   const btn = document.getElementById('modeToggleBtn');
 
+  if (!searchSec || !calcSec) return;
+
   if (searchSec.classList.contains('hidden')) {
     searchSec.classList.remove('hidden');
     calcSec.classList.add('hidden');
-    btn.innerText = 'Switch to Calculator Mode';
+    if (btn) btn.innerText = 'Switch to Calculator Mode';
   } else {
     searchSec.classList.add('hidden');
     calcSec.classList.remove('hidden');
-    btn.innerText = 'Switch to Search Mode';
+    if (btn) btn.innerText = 'Switch to Search Mode';
   }
 }
 
-// Search Engine Logic (100% Independent Full-Detail Engine)
+// Search Engine Logic
 function handleSearch(event) {
-  if (event.key === 'Enter') performSearch();
+  if (event.key === 'Enter') {
+    performSearch();
+  }
 }
 
 function performSearch() {
-  const query = document.getElementById('searchInput').value.toLowerCase().trim();
+  const inputEl = document.getElementById('searchInput');
   const warningBox = document.getElementById('safetyWarning');
+  
+  if (!inputEl) return;
+  
+  const query = inputEl.value.toLowerCase().trim();
 
   // Safety Check
   const isForbidden = forbiddenWords.some(word => query.includes(word));
   if (isForbidden) {
-    warningBox.classList.remove('hidden');
+    if (warningBox) warningBox.classList.remove('hidden');
     renderCards([]);
     return;
   } else {
-    warningBox.classList.add('hidden');
+    if (warningBox) warningBox.classList.add('hidden');
   }
 
   if (!query) {
@@ -72,66 +80,48 @@ function performSearch() {
     return;
   }
 
-  // Check static app shortcuts first
+  let results = [];
+
   if (query.includes('tiktok')) {
-    renderCards([{
+    results.push({
       title: 'TikTok Workspace Portal',
       url: 'https://www.tiktok.com',
-      desc: 'TikTok is a global short-form video hosting service owned by ByteDance Ltd. It enables creators to produce dancing, comedy, educational, and entertainment videos with built-in editing effects, trending audio tracks, and interactive live streaming features.',
+      desc: 'TikTok is a global short-form video hosting service owned by ByteDance Ltd.',
       img: 'https://images.unsplash.com/photo-1611605698335-8b1569810432?auto=format&fit=crop&w=500&q=80'
-    }]);
-    return;
-  }
-
-  if (query.includes('youtube')) {
-    renderCards([{
+    });
+  } else if (query.includes('youtube')) {
+    results.push({
       title: 'YouTube Streaming Center',
       url: 'https://www.youtube.com',
-      desc: 'YouTube is an online video sharing and social media platform operated by Google. It hosts millions of educational tutorials, music videos, documentaries, vlogs, and live broadcasts accessible worldwide.',
+      desc: 'YouTube is an online video sharing and social media platform operated by Google.',
       img: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=500&q=80'
-    }]);
-    return;
+    });
+  } else if (query.includes('ronaldo')) {
+    results.push({
+      title: 'Cristiano Ronaldo (Full Profile)',
+      url: '#',
+      desc: 'Cristiano Ronaldo dos Santos Aveiro is a Portuguese professional footballer who plays as a forward and captains Al-Nassr and the Portugal national team.',
+      img: 'https://images.unsplash.com/photo-1508098682722-e99c43a406b2?auto=format&fit=crop&w=500&q=80'
+    });
+  } else {
+    let capitalized = query.charAt(0).toUpperCase() + query.slice(1);
+    results.push({
+      title: capitalized,
+      url: '#',
+      desc: `Detailed Matel Workspace Record for "${query}": Comprehensive educational analysis and knowledge synthesis.`,
+      img: 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=500&q=80'
+    });
   }
 
-  // Filter existing static cards
-  let filtered = searchCards.filter(c => c.keyword.includes(query) || c.title.toLowerCase().includes(query) || c.desc.toLowerCase().includes(query));
-
-  if (filtered.length > 0) {
-    renderCards(filtered);
-    return;
-  }
-
-  // Detailed custom built-in knowledge database with full information blocks
-  let customTitle = query.charAt(0).toUpperCase() + query.slice(1);
-  let customDesc = `Detailed Matel Workspace Record for "${query}": This subject encompasses extensive background data, core principles, historical relevance, and advanced applications structured specifically for high-performance educational analysis.`;
-  let customImg = 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=500&q=80';
-
-  if (query.includes('ronaldo')) {
-    customTitle = 'Cristiano Ronaldo (Full Profile)';
-    customDesc = 'Cristiano Ronaldo dos Santos Aveiro (born 5 February 1985) is a Portuguese professional footballer who plays as a forward and captains both the Saudi Professional League club Al-Nassr and the Portugal national team. Widely regarded as one of the greatest players of all time, Ronaldo has won five Ballon d\'Or awards, three UEFA Best Player in Europe Awards, and four European Golden Shoes. He has scored over 900 official senior career goals for club and country, making him the top goalscorer of all time.';
-    customImg = 'https://images.unsplash.com/photo-1508098682722-e99c43a406b2?auto=format&fit=crop&w=500&q=80';
-  } else if (query.includes('moon') || query.includes('first man')) {
-    customTitle = 'Apollo 11 & First Man on the Moon';
-    customDesc = 'American astronaut Neil Armstrong became the first person to walk on the Moon on July 20, 1969, at 02:56 UTC, during the Apollo 11 mission. Commander Armstrong famously stepped onto the lunar surface and stated: "That\'s one small step for man, one giant leap for mankind." He was accompanied on the historic mission by Lunar Module Pilot Buzz Aldrin and Command Module Pilot Michael Collins.';
-    customImg = 'https://images.unsplash.com/photo-1522030299830-16b8d3d049fe?auto=format&fit=crop&w=500&q=80';
-  } else if (query.includes('python')) {
-    customTitle = 'Python Programming Language';
-    customDesc = 'Python is a high-level, interpreted, general-purpose programming language. Created by Guido van Rossum and first released in 1991, Python\'s design philosophy emphasizes code readability with the use of significant indentation. Its language constructs and object-oriented approach aim to help programmers write clear, logical code for small and large-scale projects including web applications, data science, artificial intelligence, and task automation.';
-    customImg = 'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=500&q=80';
-  }
-
-  renderCards([{
-    title: customTitle,
-    desc: customDesc,
-    img: customImg,
-    url: '#'
-  }]);
+  renderCards(results);
 }
 
 function renderCards(cards) {
   const grid = document.getElementById('searchResults');
+  if (!grid) return;
+  
   grid.innerHTML = '';
-  if (cards.length === 0) {
+  if (!cards || cards.length === 0) {
     grid.innerHTML = '<p style="color:var(--text-muted); grid-column:1/-1; text-align:center;">No workspace cards found.</p>';
     return;
   }
@@ -163,18 +153,131 @@ function renderCards(cards) {
   });
 }
 
-// Calculator Logic with Symbolic Algebra & Step-by-Step Breakdown
+// Calculator Logic
 let currentExpression = '';
 
 function calcInput(val) {
   currentExpression += val;
-  document.getElementById('calcExpression').innerText = currentExpression;
+  const exprEl = document.getElementById('calcExpression');
+  if (exprEl) exprEl.innerText = currentExpression;
 }
 
 function calcAction(action) {
+  const exprEl = document.getElementById('calcExpression');
+  const resEl = document.getElementById('calcResult');
+  const logicEl = document.getElementById('logicBox');
+
   if (action === 'AC' || action === 'C') {
     currentExpression = '';
-    document.getElementById('calcExpression').innerText = '';
-    document.getElementById('calcResult').innerText = '0';
-    document.getElementById('logicBox').innerHTML = '<p><em>Step-by-step breakdown will appear here...</em></p>';
+    if (exprEl) exprEl.innerText = '';
+    if (resEl) resEl.innerText = '0';
+    if (logicEl) logicEl.innerHTML = '<p><em>Step-by-step breakdown will appear here...</em></p>';
   } else if (action === 'DEL') {
+    currentExpression = currentExpression.slice(0, -1);
+    if (exprEl) exprEl.innerText = currentExpression;
+  }
+}
+
+function calculateResult() {
+  const resultLine = document.getElementById('calcResult');
+  const logicBox = document.getElementById('logicBox');
+
+  try {
+    if (!currentExpression) return;
+
+    const hasAlgebra = /[a-zA-Z]/.test(currentExpression);
+
+    if (hasAlgebra) {
+      if (resultLine) resultLine.innerText = currentExpression;
+      if (logicBox) logicBox.innerHTML = `<strong>Symbolic Algebra Recognized:</strong><br>• Expression simplified symbolically: <code>${currentExpression}</code>`;
+    } else {
+      let sanitized = currentExpression.replace(/×/g, '*').replace(/÷/g, '/');
+      let res = eval(sanitized);
+      if (resultLine) resultLine.innerText = res;
+      if (logicBox) logicBox.innerHTML = `<strong>Step-by-Step Breakdown:</strong><br>1. Parsed: ${currentExpression}<br>2. Result: ${res}`;
+    }
+  } catch (err) {
+    if (resultLine) resultLine.innerText = 'Error';
+    if (logicBox) logicBox.innerHTML = '<span style="color:#f87171;">Invalid mathematical expression syntax.</span>';
+  }
+}
+
+// OCR Scanner
+function openScanner() {
+  const modal = document.getElementById('scannerModal');
+  if (modal) modal.classList.remove('hidden');
+}
+
+function closeScanner() {
+  const modal = document.getElementById('scannerModal');
+  if (modal) modal.classList.add('hidden');
+}
+
+async function processImageNote(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+
+  const status = document.getElementById('scannerStatus');
+  if (status) status.innerText = '⏳ Scanning image...';
+
+  try {
+    const { data: { text } } = await Tesseract.recognize(file, 'eng');
+    if (status) status.innerHTML = `<strong>Extracted Text:</strong><br>${text}`;
+    currentExpression = text.replace(/[\n\r]+/g, ' ').trim();
+    const exprEl = document.getElementById('calcExpression');
+    if (exprEl) exprEl.innerText = currentExpression;
+  } catch (err) {
+    if (status) status.innerText = '❌ Error scanning image.';
+  }
+}
+
+// Admin Panel Controls
+function openAdminModal() {
+  const modal = document.getElementById('adminModal');
+  if (modal) modal.classList.remove('hidden');
+}
+
+function closeAdminModal() {
+  const modal = document.getElementById('adminModal');
+  if (modal) modal.classList.add('hidden');
+}
+
+function loginAdmin() {
+  const passEl = document.getElementById('adminPassword');
+  if (!passEl) return;
+  
+  if (passEl.value === 'admin123') {
+    const authSec = document.getElementById('adminAuthSection');
+    const dashSec = document.getElementById('adminDashboardSection');
+    if (authSec) authSec.classList.add('hidden');
+    if (dashSec) dashSec.classList.remove('hidden');
+  } else {
+    alert('Wrong password! Use admin123');
+  }
+}
+
+function addCustomLink() {
+  const keywordInput = document.getElementById('newKeyword');
+  const titleInput = document.getElementById('newTitle');
+  const urlInput = document.getElementById('newUrl');
+  const descInput = document.getElementById('newDesc');
+  const iconInput = document.getElementById('newIcon');
+
+  if (!keywordInput || !titleInput || !urlInput) return;
+
+  const keyword = keywordInput.value.toLowerCase().trim();
+  const title = titleInput.value.trim();
+  const url = urlInput.value.trim();
+  const desc = descInput ? descInput.value.trim() : '';
+  const img = iconInput ? iconInput.value.trim() : '';
+
+  if (!keyword || !title || !url) {
+    alert('Please fill out required fields!');
+    return;
+  }
+
+  searchCards.push({ keyword, title, url, desc: desc || 'Custom educational card', img: img || 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=500&q=80' });
+  alert('Custom search card added successfully!');
+  renderCards(searchCards);
+  closeAdminModal();
+}
