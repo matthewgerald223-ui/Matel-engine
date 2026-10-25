@@ -1,21 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Matel | Independent Search Engine</title>
-  
-  <!-- SEO Meta Tags -->
-  <meta name="description" content="Matel Engine is an independent search engine created and developed by Ekpah Matthew. Built to make web discovery fast, simple, and clean.">
-  <meta name="author" content="Ekpah Matthew">
-  <meta name="keywords" content="Matel, Matel Engine, Search Engine, Ekpah Matthew, Independent Search Engine">
-
-  <!-- Open Graph / Social Media -->
-  <meta property="og:title" content="Matel Search Engine">
-  <meta property="og:description" content="Created and developed by Ekpah Matthew. Fast and independent web search.">
-  <meta property="og:type" content="website">
-
-  <style>
     /* RESET & BASE STYLES */
     * {
       box-sizing: border-box;
@@ -31,7 +13,7 @@
       flex-direction: column;
       align-items: center;
       min-height: 100vh;
-      padding: 20px 15px 80px 15px; /* bottom padding so mobile navbar no block footer */
+      padding: 20px 15px 50px 15px;
     }
 
     /* MAIN CONTAINER */
@@ -41,12 +23,12 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      margin-top: 40px;
+      margin-top: 20px;
     }
 
     /* BRAND LOGO & SUBTITLE */
     .logo {
-      font-size: 42px;
+      font-size: 38px;
       font-weight: 900;
       color: #00ffcc;
       letter-spacing: 2px;
@@ -54,9 +36,9 @@
     }
 
     .sub-domain {
-      font-size: 13px;
+      font-size: 12px;
       color: #8b9bb0;
-      margin-bottom: 25px;
+      margin-bottom: 20px;
     }
 
     /* SEARCH FORM */
@@ -65,24 +47,23 @@
       position: relative;
       display: flex;
       align-items: center;
-      margin-bottom: 20px;
+      margin-bottom: 15px;
     }
 
     .search-input {
       width: 100%;
-      padding: 16px 100px 16px 20px;
+      padding: 14px 90px 14px 18px;
       border-radius: 30px;
       border: 1px solid #1a232e;
       background-color: #12181f;
       color: #ffffff;
-      font-size: 15px;
+      font-size: 14px;
       outline: none;
-      transition: border-color 0.2s ease, box-shadow 0.2s ease;
     }
 
     .search-input:focus {
       border-color: #00ffcc;
-      box-shadow: 0 0 12px rgba(0, 255, 204, 0.2);
+      box-shadow: 0 0 10px rgba(0, 255, 204, 0.2);
     }
 
     .search-input::placeholder {
@@ -91,27 +72,22 @@
 
     .search-btn {
       position: absolute;
-      right: 6px;
-      padding: 10px 24px;
+      right: 5px;
+      padding: 9px 20px;
       border-radius: 25px;
       border: none;
       background-color: #00ffcc;
       color: #0b0f14;
       font-weight: bold;
-      font-size: 14px;
+      font-size: 13px;
       cursor: pointer;
-      transition: background-color 0.2s ease;
-    }
-
-    .search-btn:hover {
-      background-color: #00e6b8;
     }
 
     /* DEVELOPER CREDIT */
     .developer-tag {
-      font-size: 13px;
+      font-size: 12px;
       color: #8b9bb0;
-      margin-bottom: 35px;
+      margin-bottom: 25px;
       text-align: center;
     }
 
@@ -120,80 +96,65 @@
       font-weight: 600;
     }
 
-    /* 1. FEATURE HIGHLIGHT CARDS */
+    /* 1. FEATURE CARDS (FIXED FOR MOBILE) */
     .matel-features {
       display: flex;
       justify-content: center;
-      gap: 12px;
+      gap: 8px;
       width: 100%;
-      margin-bottom: 30px;
-      flex-wrap: wrap;
+      margin-bottom: 20px;
     }
 
     .feature-card {
       background: #12181f;
       border: 1px solid #1a232e;
-      border-radius: 14px;
-      padding: 16px;
+      border-radius: 10px;
+      padding: 10px 8px;
       flex: 1;
-      min-width: 180px;
-      max-width: 210px;
       text-align: center;
-      transition: transform 0.2s ease, border-color 0.2s ease;
-    }
-
-    .feature-card:hover {
-      transform: translateY(-3px);
-      border-color: #00ffcc;
     }
 
     .feature-icon {
-      font-size: 22px;
-      margin-bottom: 8px;
+      font-size: 16px;
+      margin-bottom: 4px;
     }
 
     .feature-card h4 {
       color: #ffffff;
-      font-size: 13px;
-      margin-bottom: 6px;
+      font-size: 11px;
+      margin-bottom: 3px;
     }
 
     .feature-card p {
       color: #8b9bb0;
-      font-size: 11px;
-      line-height: 1.4;
+      font-size: 9px;
+      line-height: 1.3;
     }
 
     /* 2. TRENDING TAGS */
     .matel-trending {
       width: 100%;
       text-align: center;
-      margin-bottom: 35px;
+      margin-bottom: 25px;
     }
 
     .trending-title {
       color: #8b9bb0;
-      font-size: 12px;
+      font-size: 11px;
       display: block;
-      margin-bottom: 10px;
+      margin-bottom: 6px;
     }
 
     .tag {
       display: inline-block;
       background: #12181f;
       color: #00ffcc;
-      padding: 6px 14px;
-      border-radius: 20px;
-      font-size: 11px;
+      padding: 5px 10px;
+      border-radius: 15px;
+      font-size: 10px;
       text-decoration: none;
-      margin: 4px;
+      margin: 3px;
       border: 1px solid rgba(0, 255, 204, 0.2);
-      transition: all 0.2s ease;
-    }
-
-    .tag:hover {
-      background: #00ffcc;
-      color: #0b0f14;
     }
 
     /* 3. FOOTER MENU & STATS */
@@ -201,101 +162,24 @@
       width: 100%;
       text-align: center;
       border-top: 1px solid #1a232e;
-      padding-top: 25px;
+      padding-top: 15px;
     }
 
     .footer-links {
       display: flex;
       justify-content: center;
-      gap: 18px;
-      margin-bottom: 12px;
+      gap: 12px;
+      margin-bottom: 8px;
       flex-wrap: wrap;
     }
 
     .footer-links a {
       color: #8b9bb0;
-      font-size: 12px;
+      font-size: 11px;
       text-decoration: none;
-      transition: color 0.2s;
-    }
-
-    .footer-links a:hover {
-      color: #00ffcc;
     }
 
     .footer-stats {
       color: #4a5a6e;
-      font-size: 11px;
+      font-size: 10px;
     }
-  </style>
-</head>
-<body>
-
-  <div class="container">
-    <!-- BRAND LOGO -->
-    <h1 class="logo">MATEL</h1>
-    <div class="sub-domain">www.matel.com</div>
-
-    <!-- SEARCH BAR -->
-    <form class="search-box" action="/search" method="GET">
-      <input 
-        type="text" 
-        name="q" 
-        class="search-input" 
-        placeholder="Search anything or calculate..." 
-        required 
-        autocomplete="off"
-      >
-      <button type="submit" class="search-btn">Go</button>
-    </form>
-
-    <!-- DEVELOPER CREDIT -->
-    <div class="developer-tag">
-      Created & Developed by <span>Ekpah Matthew</span>
-    </div>
-
-    <!-- 1. FEATURE HIGHLIGHT CARDS -->
-    <div class="matel-features">
-      <div class="feature-card">
-        <div class="feature-icon">⚡</div>
-        <h4>Fast Web Discovery</h4>
-        <p>Get instant search results and real-time indexed answers across the web.</p>
-      </div>
-      <div class="feature-card">
-        <div class="feature-icon">🧮</div>
-        <h4>Smart Calculator</h4>
-        <p>Perform quick math, equations, and student calculations directly in the bar.</p>
-      </div>
-      <div class="feature-card">
-        <div class="feature-icon">🔒</div>
-        <h4>Clean & Private</h4>
-        <p>Zero clutter, privacy-focused search experience built for pure speed.</p>
-      </div>
-    </div>
-
-    <!-- 2. TRENDING TOPICS -->
-    <div class="matel-trending">
-      <span class="trending-title">Trending Topics:</span>
-      <a href="/search?q=Tech+News" class="tag">Tech News</a>
-      <a href="/search?q=Football+Scores" class="tag">Football Scores</a>
-      <a href="/search?q=Student+Tools" class="tag">Student Tools</a>
-      <a href="/search?q=AI+Tools" class="tag">AI Tools</a>
-    </div>
-
-    <!-- 3. FOOTER MENU & STATS -->
-    <footer class="matel-footer">
-      <div class="footer-links">
-        <a href="#">About Matel</a>
-        <a href="#">Privacy Policy</a>
-        <a href="#">Terms</a>
-        <a href="#">Developer Info</a>
-      </div>
-      <div class="footer-stats">
-        <span>Matel Engine v1.0</span> • <span>Powered by Node.js</span>
-      </div>
-    </footer>
-
-  </div>
-
-</body>
-</html>
