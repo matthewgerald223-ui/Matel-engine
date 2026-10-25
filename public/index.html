@@ -3,250 +3,141 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Matel | Independent Search Engine</title>
-  
-  <meta name="description" content="Matel Engine is an independent search engine created and developed by Ekpah Matthew.">
   <meta name="author" content="Ekpah Matthew">
-
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    }
-
-    body {
-      background-color: #0b0f14;
-      color: #ffffff;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      min-height: 100vh;
-      padding: 20px 15px 50px 15px;
-    }
-
-    .container {
-      width: 100%;
-      max-width: 700px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      margin-top: 20px;
-    }
-
-    .logo {
-      font-size: 38px;
-      font-weight: 900;
-      color: #00ffcc;
-      letter-spacing: 2px;
-      margin-bottom: 2px;
-    }
-
-    .sub-domain {
-      font-size: 12px;
-      color: #8b9bb0;
-      margin-bottom: 20px;
-    }
-
-    /* 100% CLICKABLE SEARCH BOX (FLEX LAYOUT) */
-    .search-box {
-      width: 100%;
-      display: flex;
-      align-items: center;
-      background-color: #12181f;
-      border: 1px solid #1a232e;
-      border-radius: 30px;
-      padding: 5px 6px;
-      margin-bottom: 15px;
-      transition: border-color 0.2s ease, box-shadow 0.2s ease;
-    }
-
-    .search-box:focus-within {
-      border-color: #00ffcc;
-      box-shadow: 0 0 10px rgba(0, 255, 204, 0.2);
-    }
-
-    .search-input {
-      flex: 1;
-      padding: 10px 14px;
-      border: none;
-      background: transparent;
-      color: #ffffff;
-      font-size: 14px;
-      outline: none;
-    }
-
-    .search-input::placeholder {
-      color: #5d6e82;
-    }
-
-    .search-btn {
-      padding: 9px 20px;
-      border-radius: 25px;
-      border: none;
-      background-color: #00ffcc;
-      color: #0b0f14;
-      font-weight: bold;
-      font-size: 13px;
-      cursor: pointer;
-      flex-shrink: 0;
-    }
-
-    .search-btn:hover {
-      background-color: #00e6b8;
-    }
-
-    .developer-tag {
-      font-size: 12px;
-      color: #8b9bb0;
-      margin-bottom: 25px;
-      text-align: center;
-    }
-
-    .developer-tag span {
-      color: #00ffcc;
-      font-weight: 600;
-    }
-
-    .matel-features {
-      display: flex;
-      justify-content: center;
-      gap: 8px;
-      width: 100%;
-      margin-bottom: 20px;
-    }
-
-    .feature-card {
-      background: #12181f;
-      border: 1px solid #1a232e;
-      border-radius: 10px;
-      padding: 10px 8px;
-      flex: 1;
-      text-align: center;
-    }
-
-    .feature-icon {
-      font-size: 16px;
-      margin-bottom: 4px;
-    }
-
-    .feature-card h4 {
-      color: #ffffff;
-      font-size: 11px;
-      margin-bottom: 3px;
-    }
-
-    .feature-card p {
-      color: #8b9bb0;
-      font-size: 9px;
-      line-height: 1.3;
-    }
-
-    .matel-trending {
-      width: 100%;
-      text-align: center;
-      margin-bottom: 25px;
-    }
-
-    .trending-title {
-      color: #8b9bb0;
-      font-size: 11px;
-      display: block;
-      margin-bottom: 6px;
-    }
-
-    .tag {
-      display: inline-block;
-      background: #12181f;
-      color: #00ffcc;
-      padding: 5px 10px;
-      border-radius: 15px;
-      font-size: 10px;
-      text-decoration: none;
-      margin: 3px;
-      border: 1px solid rgba(0, 255, 204, nothing);
-      border: 1px solid rgba(0, 255, 204, 0.2);
-    }
-
-    .matel-footer {
-      width: 100%;
-      text-align: center;
-      border-top: 1px solid #1a232e;
-      padding-top: 15px;
-    }
-
-    .footer-links {
-      display: flex;
-      justify-content: center;
-      gap: 12px;
-      margin-bottom: 8px;
-      flex-wrap: wrap;
-    }
-
-    .footer-links a {
-      color: #8b9bb0;
-      font-size: 11px;
-      text-decoration: none;
-    }
-
-    .footer-stats {
-      color: #4a5a6e;
-      font-size: 10px;
-    }
-  </style>
+  <meta name="description" content="Matel - High-Performance Educational Workspace built by Ekpah Matthew">
+  <title>Matel - High-Performance Workspace</title>
+  <link rel="stylesheet" href="style.css">
+  <!-- Tesseract.js for OCR Camera Scanning -->
+  <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
 </head>
 <body>
 
-  <div class="container">
-    <h1 class="logo">MATEL</h1>
-    <div class="sub-domain">www.matel.com</div>
-
-    <form class="search-box" action="/search" method="GET">
-      <input type="text" name="q" class="search-input" placeholder="Search anything or calculate..." required autocomplete="off">
-      <button type="submit" class="search-btn">Go</button>
-    </form>
-
-    <div class="developer-tag">
-      Created & Developed by <span>Ekpah Matthew</span>
+  <!-- Top Navigation Bar -->
+  <header class="navbar">
+    <div class="logo">MATEL</div>
+    <div class="nav-controls">
+      <button id="modeToggleBtn" class="mode-btn" onclick="toggleMode()">Switch to Calculator Mode</button>
+      <button class="admin-btn" onclick="openAdminModal()">Admin Panel</button>
     </div>
+  </header>
 
-    <div class="matel-features">
-      <div class="feature-card">
-        <div class="feature-icon">⚡</div>
-        <h4>Fast Web</h4>
-        <p>Instant search results across the web.</p>
+  <!-- MAIN CONTAINER -->
+  <main class="container">
+
+    <!-- SEARCH MODE SECTION -->
+    <section id="searchSection" class="mode-section active">
+      <div class="search-box">
+        <input type="text" id="searchInput" placeholder="Search apps, websites, topics..." onkeyup="handleSearch(event)">
+        <button onclick="performSearch()">Search</button>
       </div>
-      <div class="feature-card">
-        <div class="feature-icon">🧮</div>
-        <h4>Calculator</h4>
-        <p>Quick math directly in the bar.</p>
+
+      <div id="safetyWarning" class="safety-warning hidden">
+        🛡️ Content Filtered: Matel is a clean, distraction-free educational environment.
       </div>
-      <div class="feature-card">
-        <div class="feature-icon">🔒</div>
-        <h4>Private</h4>
-        <p>Zero clutter, speed-focused.</p>
+
+      <div id="searchResults" class="results-grid">
+        <!-- Direct clickable cards with high-res pictures/icons appear here -->
       </div>
+    </section>
+
+    <!-- DEDICATED CALCULATOR MODE SECTION -->
+    <section id="calcSection" class="mode-section hidden">
+      <div class="calculator-container">
+        
+        <!-- Calculator Display Bar -->
+        <div class="calc-display">
+          <div class="display-top">NEXT GEN CALCULATOR</div>
+          <div id="calcExpression" class="expression-line"></div>
+          <div id="calcResult" class="result-line">0</div>
+          
+          <div class="ai-assist-badge">
+            <strong>AI ASSIST:</strong> Solve | Explain | Graph | Convert
+          </div>
+        </div>
+
+        <!-- Step-by-Step Logic Explanation Box -->
+        <div id="logicBox" class="logic-explanation">
+          <p><em>Step-by-step breakdown will appear here...</em></p>
+        </div>
+
+        <!-- Custom Keypad Grid -->
+        <div class="calc-keypad">
+          <!-- Row 1 -->
+          <button class="key action-key" onclick="calcAction('AC')">AC</button>
+          <button class="key action-key" onclick="calcAction('C')">C</button>
+          <button class="key action-key" onclick="calcAction('DEL')">⌫</button>
+          <button class="key operator-key" onclick="calcInput('/')">÷</button>
+          <button class="key side-key" onclick="openScanner()">📷 Scan Note</button>
+
+          <!-- Row 2 -->
+          <button class="key num-key" onclick="calcInput('7')">7</button>
+          <button class="key num-key" onclick="calcInput('8')">8</button>
+          <button class="key num-key" onclick="calcInput('9')">9</button>
+          <button class="key operator-key" onclick="calcInput('*')">×</button>
+          <button class="key side-key" onclick="calcInput('a')">a</button>
+
+          <!-- Row 3 -->
+          <button class="key num-key" onclick="calcInput('4')">4</button>
+          <button class="key num-key" onclick="calcInput('5')">5</button>
+          <button class="key num-key" onclick="calcInput('6')">6</button>
+          <button class="key operator-key" onclick="calcInput('-')">-</button>
+          <button class="key side-key" onclick="calcInput('b')">b</button>
+
+          <!-- Row 4 -->
+          <button class="key num-key" onclick="calcInput('1')">1</button>
+          <button class="key num-key" onclick="calcInput('2')">2</button>
+          <button class="key num-key" onclick="calcInput('3')">3</button>
+          <button class="key operator-key" onclick="calcInput('+')">+</button>
+          <button class="key side-key" onclick="calcInput('c')">c</button>
+
+          <!-- Row 5 -->
+          <button class="key num-key zero-key" onclick="calcInput('0')">0</button>
+          <button class="key num-key" onclick="calcInput('.')">.</button>
+          <button class="key equals-key" onclick="calculateResult()">=</button>
+          <button class="key side-key" onclick="calcInput('x')">x</button>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Creator Footer -->
+  <footer style="text-align: center; padding: 1.5rem; color: var(--text-muted); font-size: 0.85rem; border-top: 1px solid var(--border-color); margin-top: 2rem;">
+    Built with 🚀 by <strong>Ekpah Matthew</strong> | Matel Workspace
+  </footer>
+
+  <!-- OCR CAMERA SCANNER MODAL -->
+  <div id="scannerModal" class="modal hidden">
+    <div class="modal-content">
+      <h3>📷 Scan Handwritten Note</h3>
+      <input type="file" id="noteImageInput" accept="image/*" onchange="processImageNote(event)">
+      <div id="scannerStatus">Upload or snap an image of a math problem...</div>
+      <button class="close-btn" onclick="closeScanner()">Close</button>
     </div>
-
-    <div class="matel-trending">
-      <span class="trending-title">Trending Topics:</span>
-      <a href="/search?q=Tech" class="tag">Tech News</a>
-      <a href="/search?q=Football" class="tag">Football</a>
-      <a href="/search?q=Students" class="tag">Students</a>
-    </div>
-
-    <footer class="matel-footer">
-      <div class="footer-links">
-        <a href="#">About</a>
-        <a href="#">Privacy</a>
-        <a href="#">Terms</a>
-      </div>
-      <div class="footer-stats">
-        <span>Matel v1.0</span> • <span>Powered by Node.js</span>
-      </div>
-    </footer>
   </div>
 
+  <!-- ADMIN DASHBOARD MODAL -->
+  <div id="adminModal" class="modal hidden">
+    <div class="modal-content">
+      <h3>🔐 Admin Control Panel</h3>
+      <div id="adminAuthSection">
+        <input type="password" id="adminPassword" placeholder="Enter Admin Password">
+        <button onclick="loginAdmin()">Login</button>
+      </div>
+      <div id="adminDashboardSection" class="hidden">
+        <h4>Add Custom Search Card</h4>
+        <input type="text" id="newKeyword" placeholder="Keyword (e.g. youtube)">
+        <input type="text" id="newTitle" placeholder="Title (e.g. YouTube)">
+        <input type="text" id="newUrl" placeholder="URL (e.g. https://youtube.com)">
+        <input type="text" id="newDesc" placeholder="Description">
+        <input type="text" id="newIcon" placeholder="Icon Image URL">
+        <button onclick="addCustomLink()">Add Link Card</button>
+      </div>
+      <button class="close-btn" onclick="closeAdminModal()">Close</button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
 </body>
 </html>
