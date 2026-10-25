@@ -5,9 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Matel | Independent Search Engine</title>
     <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
             background-color: #121318;
             color: #f8fafc;
             min-height: 100vh;
@@ -23,208 +22,181 @@
             display: flex;
             flex-direction: column;
         }
-        .top-bar {
+        .logo {
+            font-size: 42px;
+            font-weight: 900;
+            text-align: center;
+            color: #00ffcc;
+            margin: 30px 0 5px;
+            letter-spacing: 2px;
+        }
+        .tagline {
+            text-align: center;
+            font-size: 12px;
+            color: #94a3b8;
+            margin-bottom: 25px;
+        }
+        .search-box-container {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            width: 100%;
-            padding: 10px 0;
+            background: #1e2028;
+            border-radius: 30px;
+            padding: 6px;
+            border: 1px solid #2a2d3d;
             margin-bottom: 20px;
         }
-        .menu-icon { font-size: 22px; cursor: pointer; color: #94a3b8; }
-        .profile-avatar {
-            width: 38px; height: 38px;
-            background: linear-gradient(135deg, #ff5722, #e91e63);
-            color: #fff; border-radius: 50%;
-            display: flex; align-items: center; justify-content: center;
-            font-weight: bold; font-size: 18px;
-        }
-        .logo-container { text-align: center; margin-bottom: 25px; }
-        .logo {
-            font-size: 50px; font-weight: 800; letter-spacing: -1px;
-            background: linear-gradient(135deg, #00ff88 0%, #00e1ff 100%);
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            cursor: pointer; display: inline-block;
-        }
-        .domain-sub { font-size: 12px; color: #64748b; font-family: monospace; margin-top: 2px; }
-        .search-box { position: relative; width: 100%; margin-bottom: 20px; }
         .search-input {
-            width: 100%; padding: 18px 20px; padding-right: 80px;
-            font-size: 16px; border-radius: 35px; border: 1px solid #2a2e3d;
-            background-color: #1e2230; color: #fff; outline: none;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            flex: 1;
+            background: transparent;
+            border: none;
+            outline: none;
+            color: #f8fafc;
+            padding: 12px 16px;
+            font-size: 16px;
         }
-        .search-input:focus { border-color: #00ff88; }
         .search-btn {
-            position: absolute; right: 8px; top: 50%; transform: translateY(-50%);
-            background: #00ff88; border: none; color: #0b0f19;
-            padding: 10px 18px; border-radius: 25px; font-weight: bold; cursor: pointer;
+            background: #00ffcc;
+            color: #121318;
+            border: none;
+            padding: 0 24px;
+            border-radius: 24px;
+            font-weight: bold;
+            cursor: pointer;
         }
-        #resultsContainer { width: 100%; }
+        .results-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
         .result-card {
-            background-color: #1e2230; border: 1px solid #2a2e3d;
-            border-radius: 14px; padding: 16px; margin-bottom: 12px;
+            background: #1e2028;
+            border: 1px solid #2a2d3d;
+            border-radius: 16px;
+            padding: 16px;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+            transition: border-color 0.2s;
         }
-        .result-title { font-size: 17px; color: #00e1ff; font-weight: 600; text-decoration: none; display: block; margin-bottom: 6px; }
-        .result-snippet { font-size: 13px; color: #94a3b8; line-height: 1.4; }
-        .result-url { font-size: 11px; color: #00ff88; margin-top: 8px; word-break: break-all; display: inline-block; text-decoration: none; }
-        .instant-card {
-            display: none; width: 100%; background: #1e2230;
-            border: 1px solid #00ff88; border-radius: 16px; padding: 18px; margin-bottom: 20px;
+        .result-card:hover {
+            border-color: #00ffcc;
         }
-        .instant-card h3 { color: #00ff88; font-size: 12px; margin-bottom: 4px; text-transform: uppercase; }
-        .instant-card .ans-text { font-size: 22px; font-weight: bold; color: #fff; }
-        .loading-text { text-align: center; color: #00e1ff; font-size: 14px; margin: 25px 0; display: none; font-weight: bold; }
-        .widget-carousel { display: flex; gap: 12px; overflow-x: auto; padding-bottom: 10px; margin-bottom: 25px; scrollbar-width: none; }
-        .widget-carousel::-webkit-scrollbar { display: none; }
-        .score-card {
-            min-width: 160px; background: #1e2230; border: 1px solid #2a2e3d;
-            border-radius: 18px; padding: 12px 14px; display: flex; flex-direction: column; justify-content: space-between; flex-shrink: 0;
+        .result-title {
+            font-size: 18px;
+            color: #38bdf8;
+            margin-bottom: 6px;
+            font-weight: 600;
         }
-        .score-header { display: flex; justify-content: space-between; align-items: center; font-size: 11px; color: #94a3b8; margin-bottom: 8px; }
-        .live-tag { background-color: #ef4444; color: #fff; padding: 2px 6px; border-radius: 10px; font-weight: bold; font-size: 10px; }
-        .match-teams { display: flex; justify-content: space-between; align-items: center; font-weight: bold; font-size: 15px; color: #fff; }
-        .match-time { font-size: 11px; color: #64748b; text-align: center; margin-top: 4px; }
-        .feed-card { background-color: #1e2230; border: 1px solid #2a2e3d; border-radius: 20px; overflow: hidden; margin-bottom: 20px; }
-        .feed-img { width: 100%; height: 180px; background-color: #2a2e3d; background-size: cover; background-position: center; }
-        .feed-content { padding: 16px; }
-        .feed-source { font-size: 12px; color: #00e1ff; margin-bottom: 6px; }
-        .feed-title { font-size: 17px; font-weight: 700; color: #fff; margin-bottom: 8px; }
-        .feed-snippet { font-size: 13px; color: #94a3b8; }
-        .bottom-nav {
-            position: fixed; bottom: 0; left: 0; right: 0; height: 60px;
-            background-color: #161922; border-top: 1px solid #2a2e3d;
-            display: flex; justify-content: space-around; align-items: center; z-index: 100;
+        .result-snippet {
+            font-size: 14px;
+            color: #94a3b8;
+            line-height: 1.4;
+            margin-bottom: 8px;
         }
-        .nav-item { display: flex; flex-direction: column; align-items: center; color: #64748b; font-size: 10px; text-decoration: none; cursor: pointer; }
-        .nav-item.active { color: #00ff88; }
-        .nav-icon { font-size: 20px; margin-bottom: 2px; }
+        .result-url {
+            font-size: 12px;
+            color: #34d399;
+            word-break: break-all;
+        }
+        .instant-answer {
+            background: #1e2028;
+            border: 1px solid #00ffcc;
+            border-radius: 16px;
+            padding: 20px;
+            font-size: 22px;
+            text-align: center;
+            color: #00ffcc;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        .nav-bar {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            max-width: 500px;
+            background: #121318;
+            border-top: 1px solid #2a2d3d;
+            display: flex;
+            justify-content: space-around;
+            padding: 12px 0;
+        }
+        .nav-item {
+            color: #94a3b8;
+            text-align: center;
+            font-size: 11px;
+            text-decoration: none;
+        }
     </style>
 </head>
 <body>
-
     <div class="app-container">
-        <div class="top-bar">
-            <div class="menu-icon">☰</div>
-            <div class="profile-avatar">M</div>
+        <div class="logo">MATEL</div>
+        <div class="tagline">www.matel.com</div>
+        
+        <div class="search-box-container">
+            <input type="text" id="searchInput" class="search-input" placeholder="Search anything or calculate...">
+            <button id="searchBtn" class="search-btn">Go</button>
         </div>
 
-        <div class="logo-container">
-            <div class="logo" id="matelLogo">MATEL</div>
-            <div class="domain-sub">www.matel.dem</div>
-        </div>
-
-        <form id="searchForm" class="search-box">
-            <input type="text" id="searchInput" class="search-input" placeholder="Search web or try 50 * 12..." required autofocus>
-            <button type="submit" class="search-btn">Go</button>
-        </form>
-
-        <div id="instantCard" class="instant-card">
-            <h3>Instant Computation</h3>
-            <div id="instantAnswerText" class="ans-text"></div>
-        </div>
-
-        <div id="loading" class="loading-text">⚡ Matel server is searching...</div>
-
-        <div id="resultsContainer"></div>
-
-        <div id="homeFeed">
-            <div class="widget-carousel">
-                <div class="score-card">
-                    <div class="score-header"><span>54'</span><span class="live-tag">Live</span></div>
-                    <div class="match-teams"><span>IPS</span><span>1 - 1</span><span>NFO</span></div>
-                    <div class="match-time">Premier League</div>
-                </div>
-            </div>
-            <div class="feed-card">
-                <div class="feed-img" style="background-image: url('https://images.unsplash.com/photo-1508098682722-e99c43a406b2?w=600&auto=format&fit=crop&q=60');"></div>
-                <div class="feed-content">
-                    <div class="feed-source">🔗 skysports.com</div>
-                    <div class="feed-title">Match Analysis & Premier League Preview</div>
-                    <div class="feed-snippet">Tactical breakdown of upcoming fixtures...</div>
-                </div>
-            </div>
-        </div>
+        <div id="resultsArea" class="results-container"></div>
     </div>
 
-    <div class="bottom-nav">
-        <div class="nav-item active" id="navHome"><div class="nav-icon">🏠</div><span>Home</span></div>
-        <div class="nav-item" id="navSearch"><div class="nav-icon">🔍</div><span>Search</span></div>
-        <div class="nav-item"><div class="nav-icon">🔔</div><span>Alerts</span></div>
-        <div class="nav-item"><div class="nav-icon">⚡</div><span>Activity</span></div>
+    <div class="nav-bar">
+        <a href="#" class="nav-item">Home</a>
+        <a href="#" class="nav-item">Search</a>
+        <a href="#" class="nav-item">Alerts</a>
+        <a href="#" class="nav-item">Activity</a>
     </div>
 
     <script>
-        const searchForm = document.getElementById('searchForm');
         const searchInput = document.getElementById('searchInput');
-        const resultsContainer = document.getElementById('resultsContainer');
-        const homeFeed = document.getElementById('homeFeed');
-        const loading = document.getElementById('loading');
-        const instantCard = document.getElementById('instantCard');
-        const instantAnswerText = document.getElementById('instantAnswerText');
-        const matelLogo = document.getElementById('matelLogo');
-        const navHome = document.php ? null : document.getElementById('navHome');
-        const navSearch = document.getElementById('navSearch');
+        const searchBtn = document.getElementById('searchBtn');
+        const resultsArea = document.getElementById('resultsArea');
 
-        function resetToHome() {
-            searchInput.value = '';
-            resultsContainer.innerHTML = '';
-            instantCard.style.display = 'none';
-            homeFeed.style.display = 'block';
-            navHome.classList.add('active');
-            navSearch.classList.remove('active');
-        }
-
-        matelLogo.addEventListener('click', resetToHome);
-        navHome.addEventListener('click', resetToHome);
-        navSearch.addEventListener('click', () => searchInput.focus());
-
-        searchForm.addEventListener('submit', async function(e) {
-            e.preventDefault();
+        async function performSearch() {
             const query = searchInput.value.trim();
             if (!query) return;
 
-            homeFeed.style.display = 'none';
-            resultsContainer.innerHTML = '';
-            instantCard.style.display = 'none';
-            navHome.classList.remove('active');
-            navSearch.classList.add('active');
-            loading.style.display = 'block';
+            resultsArea.innerHTML = '<div style="text-align:center; color:#94a3b8; padding:20px;">Searching...</div>';
 
             try {
-                const response = await fetch(`/api/search?q=${encodeURIComponent(query)}`);
-                const data = await response.json();
-                
-                loading.style.display = 'none';
+                const res = await fetch(`/api/search?q=${encodeURIComponent(query)}`);
+                const data = await res.json();
+
+                resultsArea.innerHTML = '';
 
                 if (data.type === 'instant') {
-                    instantAnswerText.textContent = data.answer;
-                    instantCard.style.display = 'block';
+                    resultsArea.innerHTML = `<div class="instant-answer">${data.answer}</div>`;
+                    return;
                 }
 
-                let resultsHTML = '';
-                if (data.results && data.results.length > 0) {
-                    data.results.forEach(item => {
-                        resultsHTML += `
-                            <div class="result-card">
-                                <a href="${item.url}" class="result-title" target="_blank">${item.title}</a>
-                                <div class="result-snippet">${item.snippet}...</div>
-                                <a href="${item.url}" class="result-url" target="_blank">${item.url}</a>
-                            </div>
-                        `;
-                    });
-                } else if (data.type !== 'instant') {
-                    resultsHTML = `<div class="result-card"><div class="result-title">No direct search results found</div></div>`;
+                if (!data.results || data.results.length === 0) {
+                    resultsArea.innerHTML = '<div style="text-align:center; color:#94a3b8; padding:20px;">No direct search results found</div>';
+                    return;
                 }
 
-                resultsContainer.innerHTML = resultsHTML;
+                data.results.forEach(item => {
+                    const card = document.createElement('a');
+                    card.href = item.url;
+                    card.target = '_blank';
+                    card.className = 'result-card';
+                    card.innerHTML = `
+                        <div class="result-title">${item.title}</div>
+                        <div class="result-snippet">${item.snippet}</div>
+                        <div class="result-url">${item.url}</div>
+                    `;
+                    resultsArea.appendChild(card);
+                });
 
-            } catch (error) {
-                loading.style.display = 'none';
-                resultsContainer.innerHTML = `<div class="result-card"><div class="result-title">Server Connection Error</div></div>`;
+            } catch (err) {
+                console.error(err);
+                resultsArea.innerHTML = '<div style="text-align:center; color:#ef4444; padding:20px;">Failed to fetch search results.</div>';
             }
+        }
+
+        searchBtn.addEventListener('click', performSearch);
+        searchInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') performSearch();
         });
     </script>
 </body>
-  </html>
-              
+</html>
