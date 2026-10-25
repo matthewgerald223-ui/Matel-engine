@@ -30,7 +30,7 @@ function toggleMode() {
   }
 }
 
-// Search Engine Logic (Smart Direct Links + Direct Page API Answer Engine)
+// Search Engine Logic (100% Independent - No Google Redirects)
 function handleSearch(event) {
   if (event.key === 'Enter') performSearch();
 }
@@ -57,49 +57,36 @@ function performSearch() {
   // Filter existing cards first
   let filtered = searchCards.filter(c => c.keyword.includes(query) || c.title.toLowerCase().includes(query) || c.desc.toLowerCase().includes(query));
 
-  // If no static card matches, evaluate smart app links or fetch answers directly onto the page
+  // If no static card matches, generate a fully independent knowledge card on your page!
   if (filtered.length === 0) {
-    let directUrl = `https://www.google.com/search?q=${encodeURIComponent(query)}`;
     let siteTitle = query.charAt(0).toUpperCase() + query.slice(1);
-    let siteDesc = `Educational result for "${query}" on Matel workspace.`;
+    let siteDesc = `Independent Matel Knowledge Base result for "${query}".`;
     let cardImg = 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=500&q=80';
+    let targetUrl = '#'; // Stays strictly on your page, no Google!
 
-    // Direct App Shortcuts
-    if (query.includes('tiktok')) {
-      directUrl = 'https://www.tiktok.com';
-      siteTitle = 'TikTok';
-      siteDesc = 'Watch and share creative short videos.';
-      cardImg = 'https://images.unsplash.com/photo-1611605698335-8b1569810432?auto=format&fit=crop&w=500&q=80';
-    } else if (query.includes('youtube')) {
-      directUrl = 'https://www.youtube.com';
-      siteTitle = 'YouTube';
-      siteDesc = 'Stream videos and music.';
-      cardImg = 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=500&q=80';
-    } else if (query.includes('instagram')) {
-      directUrl = 'https://www.instagram.com';
-      siteTitle = 'Instagram';
-      siteDesc = 'Connect with friends and share photos.';
-      cardImg = 'https://images.unsplash.com/photo-1611262588024-d1243029892b?auto=format&fit=crop&w=500&q=80';
-    } else if (query.includes('twitter') || query.includes('x')) {
-      directUrl = 'https://www.twitter.com';
-      siteTitle = 'X (Twitter)';
-      siteDesc = 'See what is happening right now.';
+    // Custom independent knowledge entries
+    if (query.includes('ronaldo')) {
+      siteTitle = 'Cristiano Ronaldo';
+      siteDesc = 'Cristiano Ronaldo dos Santos Aveiro is a Portuguese professional footballer who plays as a forward for Al-Nassr and the Portugal national team.';
+      cardImg = 'https://images.unsplash.com/photo-1508098682722-e99c43a406b2?auto=format&fit=crop&w=500&q=80';
+    } else if (query.includes('tiktok')) {
+      siteTitle = 'TikTok Workspace View';
+      siteDesc = 'TikTok is a short-form video hosting service owned by ByteDance. (Independent educational overview view)';
       cardImg = 'https://images.unsplash.com/photo-1611605698335-8b1569810432?auto=format&fit=crop&w=500&q=80';
     } else if (query.includes('moon') || query.includes('first man')) {
       siteTitle = 'First Man on the Moon';
       siteDesc = 'Neil Armstrong was the first man to walk on the moon during the NASA Apollo 11 mission on July 20, 1969.';
-      directUrl = '#';
       cardImg = 'https://images.unsplash.com/photo-1522030299830-16b8d3d049fe?auto=format&fit=crop&w=500&q=80';
     } else {
-      // Fetch answers live from DuckDuckGo API so questions display directly inside Matel
+      // Fetch abstract info live from DuckDuckGo API directly onto your page without opening Google
       fetch(`https://api.duckduckgo.com/?q=${encodeURIComponent(query)}&format=json`)
         .then(response => response.json())
         .then(data => {
-          let answerText = data.AbstractText || data.Heading || `Showing educational findings for: ${query}`;
+          let answerText = data.AbstractText || `Independent educational synthesis for search query: "${query}". Matel workspace internal intelligence record.`;
           let dynamicCard = {
             keyword: query,
             title: siteTitle,
-            url: data.AbstractURL || `https://www.google.com/search?q=${encodeURIComponent(query)}`,
+            url: '#', // Stays on page
             desc: answerText,
             img: 'https://images.unsplash.com/photo-1532094349884-543bc11b234d?auto=format&fit=crop&w=500&q=80'
           };
@@ -109,7 +96,7 @@ function performSearch() {
           const fallbackCard = {
             keyword: query,
             title: siteTitle,
-            url: directUrl,
+            url: '#',
             desc: siteDesc,
             img: cardImg
           };
@@ -121,7 +108,7 @@ function performSearch() {
     const dynamicCard = {
       keyword: query,
       title: siteTitle,
-      url: directUrl,
+      url: targetUrl,
       desc: siteDesc,
       img: cardImg
     };
@@ -135,14 +122,23 @@ function renderCards(cards) {
   const grid = document.getElementById('searchResults');
   grid.innerHTML = '';
   if (cards.length === 0) {
-    grid.innerHTML = '<p style="color:var(--text-muted); grid-column:1/-1; text-align:center;">No curated educational cards found for this query.</p>';
+    grid.innerHTML = '<p style="color:var(--text-muted); grid-column:1/-1; text-align:center;">No independent workspace cards found for this query.</p>';
     return;
   }
 
   cards.forEach(card => {
     const el = document.createElement('a');
     el.href = card.url;
-    el.target = '_blank';
+    // If it's an internal independent card (#), prevent external redirection
+    if(card.url === '#') {
+      el.onclick = (e) => {
+        e.preventDefault();
+        alert(`Matel Independent Knowledge Card:\n\n${card.title}\n${card.desc}`);
+      };
+    } else {
+      el.target = '_blank';
+    }
+    
     el.className = 'card';
     el.innerHTML = `
       <div class="card-img-container">
