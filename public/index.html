@@ -3,140 +3,139 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="author" content="Ekpah Matthew">
-  <meta name="description" content="Matel - High-Performance Educational Workspace built by Ekpah Matthew">
-  <title>Matel - High-Performance Workspace</title>
+  <title>Matel - Educational Super App</title>
   <link rel="stylesheet" href="style.css">
-  <!-- Tesseract.js for OCR Camera Scanning -->
-  <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/tesseract.js@4/dist/tesseract.min.js"></script>
 </head>
 <body>
 
   <!-- Top Navigation Bar -->
-  <header class="navbar">
-    <div class="logo">MATEL</div>
-    <div class="nav-controls">
-      <button id="modeToggleBtn" class="mode-btn" onclick="toggleMode()">Switch to Calculator Mode</button>
-      <button class="admin-btn" onclick="openAdminModal()">Admin Panel</button>
-    </div>
+  <header>
+    <div class="brand-title">MATEL</div>
+    <nav class="nav-buttons">
+      <button class="nav-tab active" onclick="switchTab('search')">🔍 Search / AI</button>
+      <button class="nav-tab" onclick="switchTab('calc')">🧮 Calculator</button>
+      <button class="nav-tab" onclick="switchTab('media')">📺 Media & Chill</button>
+      <button class="nav-tab" onclick="openAdminModal()">⚙️ Admin</button>
+    </nav>
   </header>
 
-  <!-- MAIN CONTAINER -->
-  <main class="container">
+  <main class="main-container">
 
-    <!-- SEARCH MODE SECTION -->
-    <section id="searchSection" class="mode-section active">
-      <div class="search-box">
-        <input type="text" id="searchInput" placeholder="Search apps, websites, topics..." onkeyup="handleSearch(event)">
-        <button onclick="performSearch()">Search</button>
+    <!-- SEARCH & AI TUTOR SECTION -->
+    <section id="searchSection" class="tab-content">
+      <div class="search-container">
+        <input type="text" id="searchInput" placeholder="Ask Matel anything (Maths, Science, History...)" onkeyup="handleSearch(event)">
+        <button onclick="performSearch()">Ask AI</button>
       </div>
-
-      <div id="safetyWarning" class="safety-warning hidden">
-        🛡️ Content Filtered: Matel is a clean, distraction-free educational environment.
+      <div id="safetyWarning" class="warning-box hidden">
+        ⚠️ Safety Filter: Content blocked due to restricted search terms.
       </div>
+      <div id="searchResults" class="results-grid"></div>
+    </section>
 
-      <div id="searchResults" class="results-grid">
-        <!-- Direct clickable cards with high-res pictures/icons appear here -->
+    <!-- CALCULATOR SECTION -->
+    <section id="calcSection" class="tab-content hidden">
+      <div class="calc-card">
+        <h3>Matel Smart Calculator</h3>
+        <div class="calc-display">
+          <div id="calcExpression"></div>
+          <div id="calcResult">0</div>
+        </div>
+        <div class="calc-buttons">
+          <button class="calc-btn operator" onclick="calcAction('AC')">AC</button>
+          <button class="calc-btn operator" onclick="calcAction('DEL')">DEL</button>
+          <button class="calc-btn operator" onclick="calcInput('/')">÷</button>
+          <button class="calc-btn operator" onclick="calcInput('*')">×</button>
+
+          <button class="calc-btn" onclick="calcInput('7')">7</button>
+          <button class="calc-btn" onclick="calcInput('8')">8</button>
+          <button class="calc-btn" onclick="calcInput('9')">9</button>
+          <button class="calc-btn operator" onclick="calcInput('-')">-</button>
+
+          <button class="calc-btn" onclick="calcInput('4')">4</button>
+          <button class="calc-btn" onclick="calcInput('5')">5</button>
+          <button class="calc-btn" onclick="calcInput('6')">6</button>
+          <button class="calc-btn operator" onclick="calcInput('+')">+</button>
+
+          <button class="calc-btn" onclick="calcInput('1')">1</button>
+          <button class="calc-btn" onclick="calcInput('2')">2</button>
+          <button class="calc-btn" onclick="calcInput('3')">3</button>
+          <button class="calc-btn operator" onclick="openScanner()">📷 OCR</button>
+
+          <button class="calc-btn" onclick="calcInput('0')">0</button>
+          <button class="calc-btn" onclick="calcInput('.')">.</button>
+          <button class="calc-btn equals" onclick="calculateResult()">=</button>
+        </div>
+        <div id="logicBox" class="logic-box">
+          <p><em>Step-by-step mathematical breakdown will appear here...</em></p>
+        </div>
       </div>
     </section>
 
-    <!-- DEDICATED CALCULATOR MODE SECTION -->
-    <section id="calcSection" class="mode-section hidden">
-      <div class="calculator-container">
+    <!-- MEDIA & CHILL SECTION (YOUTUBE / TIKTOK) -->
+    <section id="mediaSection" class="tab-content hidden">
+      <div class="media-container">
+        <h3>📺 Media & Chill Hub</h3>
+        <p class="subtext">Watch educational YouTube videos and cool TikTok clips when you take a study break!</p>
         
-        <!-- Calculator Display Bar -->
-        <div class="calc-display">
-          <div class="display-top">NEXT GEN CALCULATOR</div>
-          <div id="calcExpression" class="expression-line"></div>
-          <div id="calcResult" class="result-line">0</div>
-          
-          <div class="ai-assist-badge">
-            <strong>AI ASSIST:</strong> Solve | Explain | Graph | Convert
+        <div class="media-search">
+          <input type="text" id="mediaQuery" placeholder="Search videos (e.g. Physics experiments, Coding, Football)...">
+          <button onclick="loadMedia()">Search Media</button>
+        </div>
+
+        <div id="mediaFeed" class="media-grid">
+          <div class="media-card">
+            <h4>Educational YouTube Channel</h4>
+            <div class="iframe-wrapper">
+              <iframe src="https://www.youtube.com/embed/videoseries?list=PL3E832B395E402914" frameborder="0" allowfullscreen></iframe>
+            </div>
+          </div>
+          <div class="media-card">
+            <h4>Study Beats & Relaxing Music</h4>
+            <div class="iframe-wrapper">
+              <iframe src="https://www.youtube.com/embed/jfKfPfyJRdk" frameborder="0" allowfullscreen></iframe>
+            </div>
           </div>
         </div>
-
-        <!-- Step-by-Step Logic Explanation Box -->
-        <div id="logicBox" class="logic-explanation">
-          <p><em>Step-by-step breakdown will appear here...</em></p>
-        </div>
-
-        <!-- Custom Keypad Grid -->
-        <div class="calc-keypad">
-          <!-- Row 1 -->
-          <button class="key action-key" onclick="calcAction('AC')">AC</button>
-          <button class="key action-key" onclick="calcAction('C')">C</button>
-          <button class="key action-key" onclick="calcAction('DEL')">⌫</button>
-          <button class="key operator-key" onclick="calcInput('/')">÷</button>
-          <button class="key side-key" onclick="openScanner()">📷 Scan Note</button>
-
-          <!-- Row 2 -->
-          <button class="key num-key" onclick="calcInput('7')">7</button>
-          <button class="key num-key" onclick="calcInput('8')">8</button>
-          <button class="key num-key" onclick="calcInput('9')">9</button>
-          <button class="key operator-key" onclick="calcInput('*')">×</button>
-          <button class="key side-key" onclick="calcInput('a')">a</button>
-
-          <!-- Row 3 -->
-          <button class="key num-key" onclick="calcInput('4')">4</button>
-          <button class="key num-key" onclick="calcInput('5')">5</button>
-          <button class="key num-key" onclick="calcInput('6')">6</button>
-          <button class="key operator-key" onclick="calcInput('-')">-</button>
-          <button class="key side-key" onclick="calcInput('b')">b</button>
-
-          <!-- Row 4 -->
-          <button class="key num-key" onclick="calcInput('1')">1</button>
-          <button class="key num-key" onclick="calcInput('2')">2</button>
-          <button class="key num-key" onclick="calcInput('3')">3</button>
-          <button class="key operator-key" onclick="calcInput('+')">+</button>
-          <button class="key side-key" onclick="calcInput('c')">c</button>
-
-          <!-- Row 5 -->
-          <button class="key num-key zero-key" onclick="calcInput('0')">0</button>
-          <button class="key num-key" onclick="calcInput('.')">.</button>
-          <button class="key equals-key" onclick="calculateResult()">=</button>
-          <button class="key side-key" onclick="calcInput('x')">x</button>
-        </div>
-
       </div>
     </section>
 
   </main>
 
-  <!-- Creator Footer -->
-  <footer style="text-align: center; padding: 1.5rem; color: var(--text-muted); font-size: 0.85rem; border-top: 1px solid var(--border-color); margin-top: 2rem;">
-    Built with 🚀 by <strong>Ekpah Matthew</strong> | Matel Workspace
-  </footer>
-
-  <!-- OCR CAMERA SCANNER MODAL -->
+  <!-- OCR Scanner Modal -->
   <div id="scannerModal" class="modal hidden">
     <div class="modal-content">
-      <h3>📷 Scan Handwritten Note</h3>
-      <input type="file" id="noteImageInput" accept="image/*" onchange="processImageNote(event)">
-      <div id="scannerStatus">Upload or snap an image of a math problem...</div>
-      <button class="close-btn" onclick="closeScanner()">Close</button>
+      <span class="close-btn" onclick="closeScanner()">&times;</span>
+      <h3>Camera Photo Math Scanner</h3>
+      <input type="file" accept="image/*" onchange="processImageNote(event)">
+      <div id="scannerStatus">Upload a clear photo of a math problem or text note.</div>
     </div>
   </div>
 
-  <!-- ADMIN DASHBOARD MODAL -->
+  <!-- Admin Modal -->
   <div id="adminModal" class="modal hidden">
     <div class="modal-content">
-      <h3>🔐 Admin Control Panel</h3>
+      <span class="close-btn" onclick="closeAdminModal()">&times;</span>
+      <h3>Admin Panel</h3>
       <div id="adminAuthSection">
         <input type="password" id="adminPassword" placeholder="Enter Admin Password">
         <button onclick="loginAdmin()">Login</button>
       </div>
       <div id="adminDashboardSection" class="hidden">
-        <h4>Add Custom Search Card</h4>
-        <input type="text" id="newKeyword" placeholder="Keyword (e.g. youtube)">
-        <input type="text" id="newTitle" placeholder="Title (e.g. YouTube)">
-        <input type="text" id="newUrl" placeholder="URL (e.g. https://youtube.com)">
-        <input type="text" id="newDesc" placeholder="Description">
-        <input type="text" id="newIcon" placeholder="Icon Image URL">
-        <button onclick="addCustomLink()">Add Link Card</button>
+        <h4>Add Custom Resource Card</h4>
+        <input type="text" id="newKeyword" placeholder="Keyword (e.g. chemistry)">
+        <input type="text" id="newTitle" placeholder="Title">
+        <input type="text" id="newUrl" placeholder="URL Link">
+        <textarea id="newDesc" placeholder="Description"></textarea>
+        <button onclick="addCustomLink()">Add Resource</button>
       </div>
-      <button class="close-btn" onclick="closeAdminModal()">Close</button>
     </div>
   </div>
+
+  <footer>
+    <p>© 2026 Matel Workspace - All-in-One Learning Super-App</p>
+  </footer>
 
   <script src="script.js"></script>
 </body>
