@@ -30,7 +30,7 @@ function toggleMode() {
   }
 }
 
-// Search Engine Logic (Smart Direct Links + Dynamic Fallback)
+// Search Engine Logic (Smart Direct Links + Direct Page API Answer Engine)
 function handleSearch(event) {
   if (event.key === 'Enter') performSearch();
 }
@@ -57,29 +57,65 @@ function performSearch() {
   // Filter existing cards first
   let filtered = searchCards.filter(c => c.keyword.includes(query) || c.title.toLowerCase().includes(query) || c.desc.toLowerCase().includes(query));
 
-  // If no card matches, check popular shortcuts or generate direct link
+  // If no static card matches, evaluate smart app links or fetch answers directly onto the page
   if (filtered.length === 0) {
     let directUrl = `https://www.google.com/search?q=${encodeURIComponent(query)}`;
     let siteTitle = query.charAt(0).toUpperCase() + query.slice(1);
-    let siteDesc = `Direct access to ${siteTitle} on Matel workspace.`;
+    let siteDesc = `Educational result for "${query}" on Matel workspace.`;
+    let cardImg = 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=500&q=80';
 
-    // Smart shortcuts for popular sites so they open directly!
+    // Direct App Shortcuts
     if (query.includes('tiktok')) {
       directUrl = 'https://www.tiktok.com';
       siteTitle = 'TikTok';
       siteDesc = 'Watch and share creative short videos.';
+      cardImg = 'https://images.unsplash.com/photo-1611605698335-8b1569810432?auto=format&fit=crop&w=500&q=80';
     } else if (query.includes('youtube')) {
       directUrl = 'https://www.youtube.com';
       siteTitle = 'YouTube';
       siteDesc = 'Stream videos and music.';
+      cardImg = 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=500&q=80';
     } else if (query.includes('instagram')) {
       directUrl = 'https://www.instagram.com';
       siteTitle = 'Instagram';
       siteDesc = 'Connect with friends and share photos.';
+      cardImg = 'https://images.unsplash.com/photo-1611262588024-d1243029892b?auto=format&fit=crop&w=500&q=80';
     } else if (query.includes('twitter') || query.includes('x')) {
       directUrl = 'https://www.twitter.com';
       siteTitle = 'X (Twitter)';
       siteDesc = 'See what is happening right now.';
+      cardImg = 'https://images.unsplash.com/photo-1611605698335-8b1569810432?auto=format&fit=crop&w=500&q=80';
+    } else if (query.includes('moon') || query.includes('first man')) {
+      siteTitle = 'First Man on the Moon';
+      siteDesc = 'Neil Armstrong was the first man to walk on the moon during the NASA Apollo 11 mission on July 20, 1969.';
+      directUrl = '#';
+      cardImg = 'https://images.unsplash.com/photo-1522030299830-16b8d3d049fe?auto=format&fit=crop&w=500&q=80';
+    } else {
+      // Fetch answers live from DuckDuckGo API so questions display directly inside Matel
+      fetch(`https://api.duckduckgo.com/?q=${encodeURIComponent(query)}&format=json`)
+        .then(response => response.json())
+        .then(data => {
+          let answerText = data.AbstractText || data.Heading || `Showing educational findings for: ${query}`;
+          let dynamicCard = {
+            keyword: query,
+            title: siteTitle,
+            url: data.AbstractURL || `https://www.google.com/search?q=${encodeURIComponent(query)}`,
+            desc: answerText,
+            img: 'https://images.unsplash.com/photo-1532094349884-543bc11b234d?auto=format&fit=crop&w=500&q=80'
+          };
+          renderCards([dynamicCard]);
+        })
+        .catch(err => {
+          const fallbackCard = {
+            keyword: query,
+            title: siteTitle,
+            url: directUrl,
+            desc: siteDesc,
+            img: cardImg
+          };
+          renderCards([fallbackCard]);
+        });
+      return; 
     }
 
     const dynamicCard = {
@@ -87,7 +123,7 @@ function performSearch() {
       title: siteTitle,
       url: directUrl,
       desc: siteDesc,
-      img: 'https://images.unsplash.com/photo-1611605698335-8b1569810432?auto=format&fit=crop&w=500&q=80'
+      img: cardImg
     };
     filtered = [dynamicCard];
   }
