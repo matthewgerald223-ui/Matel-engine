@@ -30,7 +30,7 @@ function toggleMode() {
   }
 }
 
-// Search Engine Logic (Dynamic: turns any search into a card instantly!)
+// Search Engine Logic (Smart Direct Links + Dynamic Fallback)
 function handleSearch(event) {
   if (event.key === 'Enter') performSearch();
 }
@@ -57,14 +57,37 @@ function performSearch() {
   // Filter existing cards first
   let filtered = searchCards.filter(c => c.keyword.includes(query) || c.title.toLowerCase().includes(query) || c.desc.toLowerCase().includes(query));
 
-  // If no card matches your typing, automatically generate a live dynamic card for what you typed!
+  // If no card matches, check popular shortcuts or generate direct link
   if (filtered.length === 0) {
+    let directUrl = `https://www.google.com/search?q=${encodeURIComponent(query)}`;
+    let siteTitle = query.charAt(0).toUpperCase() + query.slice(1);
+    let siteDesc = `Direct access to ${siteTitle} on Matel workspace.`;
+
+    // Smart shortcuts for popular sites so they open directly!
+    if (query.includes('tiktok')) {
+      directUrl = 'https://www.tiktok.com';
+      siteTitle = 'TikTok';
+      siteDesc = 'Watch and share creative short videos.';
+    } else if (query.includes('youtube')) {
+      directUrl = 'https://www.youtube.com';
+      siteTitle = 'YouTube';
+      siteDesc = 'Stream videos and music.';
+    } else if (query.includes('instagram')) {
+      directUrl = 'https://www.instagram.com';
+      siteTitle = 'Instagram';
+      siteDesc = 'Connect with friends and share photos.';
+    } else if (query.includes('twitter') || query.includes('x')) {
+      directUrl = 'https://www.twitter.com';
+      siteTitle = 'X (Twitter)';
+      siteDesc = 'See what is happening right now.';
+    }
+
     const dynamicCard = {
       keyword: query,
-      title: query.charAt(0).toUpperCase() + query.slice(1),
-      url: `https://www.google.com/search?q=${encodeURIComponent(query)}`,
-      desc: `Search the web for "${query}" on Matel workspace.`,
-      img: 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=500&q=80'
+      title: siteTitle,
+      url: directUrl,
+      desc: siteDesc,
+      img: 'https://images.unsplash.com/photo-1611605698335-8b1569810432?auto=format&fit=crop&w=500&q=80'
     };
     filtered = [dynamicCard];
   }
