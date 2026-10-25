@@ -1,21 +1,21 @@
 const express = require('express');
 const path = require('path');
-const app = express();
 
-// Serve all static files (index.html, CSS, etc.) from the public folder
+const app = express();
+const PORT = process.env.PORT || 3000;
+
+// Middleware to parse JSON data
+app.use(express.json());
+
+// Serve frontend static files from the 'public' folder
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Explicit search route to serve search.html when form is submitted
-app.get('/search', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'search.html'));
+// Basic API test route
+app.get('/api/status', (req, res) => {
+  res.json({ status: 'Matel server dey run smoothly!', timestamp: new Date() });
 });
 
-// Fallback home route
-app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'index.html'));
-});
-
-const PORT = process.env.PORT || 3000;
+// Start server
 app.listen(PORT, () => {
-  console.log(`Matel engine running on port ${PORT}`);
+  console.log(`🚀 Matel server active on port ${PORT}`);
 });
