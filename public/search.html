@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Matel Search Results</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+
+    body {
+      background-color: #0b0f14;
+      color: #ffffff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      padding: 30px 20px;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 700px;
+    }
+
+    .logo {
+      font-size: 24px;
+      font-weight: 900;
+      color: #00ffcc;
+      margin-bottom: 20px;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .results-box {
+      background: #12181f;
+      border: 1px solid #1a232e;
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+
+    h3 {
+      color: #00ffcc;
+      font-size: 16px;
+      margin-bottom: 8px;
+    }
+
+    p {
+      color: #8b9bb0;
+      font-size: 13px;
+      line-height: 1.4;
+    }
+
+    .back-btn {
+      display: inline-block;
+      background-color: #12181f;
+      border: 1px solid #1a232e;
+      color: #00ffcc;
+      padding: 10px 20px;
+      border-radius: 20px;
+      text-distance: none;
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: bold;
+    }
+
+    .back-btn:hover {
+      border-color: #00ffcc;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <a href="/" class="logo">MATEL</a>
+    
+    <div id="query-display" style="margin-bottom: 20px; font-size: 15px; color: #8b9bb0;">
+      Results for: <strong id="search-term" style="color: #ffffff;"></strong>
+    </div>
+
+    <div class="results-box">
+      <h3>Web Discovery</h3>
+      <p id="mock-result">Fetching live results for your query across the web index...</p>
+    </div>
+
+    <a href="/" class="back-btn">← Back to Search</a>
+  </div>
+
+  <script>
+    // Grab query parameter 'q' from the URL automatically using JS
+    const urlParams = new URLSearchParams(window.location.search);
+    const query = urlParams.get('q');
+    
+    if (query) {
+      document.getElementById('search-term').textContent = query;
+      document.getElementById('mock-result').textContent = `Showing independent index results matching "${query}". Matel Engine v1.0 indexing active.`;
+      document.title = `Matel Search - ${query}`;
+    } else {
+      document.getElementById('search-term').textContent = "Nothing entered";
+    }
+  </script>
+
+</body>
+</html>
