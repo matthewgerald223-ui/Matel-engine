@@ -30,7 +30,7 @@ function toggleMode() {
   }
 }
 
-// Search Engine Logic
+// Search Engine Logic (Dynamic: turns any search into a card instantly!)
 function handleSearch(event) {
   if (event.key === 'Enter') performSearch();
 }
@@ -54,7 +54,21 @@ function performSearch() {
     return;
   }
 
-  const filtered = searchCards.filter(c => c.keyword.includes(query) || c.title.toLowerCase().includes(query) || c.desc.toLowerCase().includes(query));
+  // Filter existing cards first
+  let filtered = searchCards.filter(c => c.keyword.includes(query) || c.title.toLowerCase().includes(query) || c.desc.toLowerCase().includes(query));
+
+  // If no card matches your typing, automatically generate a live dynamic card for what you typed!
+  if (filtered.length === 0) {
+    const dynamicCard = {
+      keyword: query,
+      title: query.charAt(0).toUpperCase() + query.slice(1),
+      url: `https://www.google.com/search?q=${encodeURIComponent(query)}`,
+      desc: `Search the web for "${query}" on Matel workspace.`,
+      img: 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=500&q=80'
+    };
+    filtered = [dynamicCard];
+  }
+
   renderCards(filtered);
 }
 
